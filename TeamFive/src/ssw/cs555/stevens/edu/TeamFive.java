@@ -75,6 +75,10 @@ public class TeamFive {
 			fewerThanFifteenSiblings(families);
 			// US16 - Kuo Fan
 			// TODO
+			
+			// ****Sprint 3****
+			//US - 23 Patrick Hill
+			uniqueNameAndBirthdate(individuals);
 
 		} catch (FileNotFoundException ex) {
 			System.out.println("File Not Found. Please Check Path and Filename");
@@ -1030,6 +1034,30 @@ public class TeamFive {
 				}
 				childMap = null;
 			}
+		}
+	}
+	static void uniqueNameAndBirthdate(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
+		// Sprint 3 Patrick Hill User Story US23 - Unique Names and Birthdates
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		while (indEntries.hasNext()) {
+			Map.Entry<String, Individual> indEntry = indEntries.next();
+			Individual ind = indEntry.getValue();
+			Map<String, Individual> indMap2 = new HashMap<String, Individual>(individuals);
+			Iterator<Map.Entry<String, Individual>> indEntries2 = indMap2.entrySet().iterator();
+			while (indEntries2.hasNext()) {
+				Map.Entry<String, Individual> indEntry2 = indEntries2.next();
+				Individual ind2 = indEntry2.getValue();
+				if ((ind.getName().equals(ind2.getName())) && (ind.getBirth().equals(ind2.getBirth())) && (ind.getId()!=ind2.getId()) ) {
+						writeToFile(
+								"***************************ERROR: User Story US23: Unique Names and Birthdates****************************\nIndividual: "
+										+  ind.getId() + " - " + ind.getName() 
+										+ "  has The same name and birthdate as Individual: " + ind2.getId() + " - " + ind2.getName()+ "\nThe DOB for both is: "
+										+ ind.getBirth()
+										+ "\n**********************************************************************************************************\n");
+				}
+			}
+			
 		}
 	}
 }
