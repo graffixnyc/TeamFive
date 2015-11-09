@@ -77,9 +77,24 @@ public class TeamFive {
 			// TODO
 			
 			// ****Sprint 3****
-			//US - 23 Patrick Hill
+			
+			// US18 - Jason Sarwar
+			siblingsShouldNotMarry(individuals, families);
+			// US19 - Xuanhong Shen
+			// TODO
+			// US20 - Patrick Hill
+			// TODO
+			// US21 - Kuo Fan
+			// TODO
+			// US22 - Xuanhong Shen
+			// TODO
+			// US23 - Patrick Hill
 			uniqueNameAndBirthdate(individuals);
-
+			// US24 - Jason Sarwar
+			// TODO
+			// US29 - Kuo Fan
+			// TODO
+			
 		} catch (FileNotFoundException ex) {
 			System.out.println("File Not Found. Please Check Path and Filename");
 			main(null);
