@@ -1036,6 +1036,31 @@ public class TeamFive {
 			}
 		}
 	}
+	
+	static void siblingsShouldNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
+		// Sprint 3 - Jason Sarwar - User Story US18 - Siblings Should Not Marry 
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+
+		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+
+		while (famEntries.hasNext()) {
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			Individual dad = indMap.get(fam.getHusb());
+			Individual mom = indMap.get(fam.getWife());
+			if(dad.getChildOf() == mom.getChildOf()) {
+				writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
+						+ dad.getId + " - " + dad.getName + " and " + mom.getId + " - " + mom.getName + " are married and have the same parents"
+						+ "\n**********************************************************************************************************\n");
+			
+			}
+		}
+	}
+	
+	
+	
+	
 	static void uniqueNameAndBirthdate(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
 		// Sprint 3 Patrick Hill User Story US23 - Unique Names and Birthdates
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
