@@ -28,6 +28,8 @@ public class TeamFive {
 	private static HashMap<String, Individual> individuals = new HashMap<String, Individual>();
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	private static String fileName = null;
+	private static ArrayList<Individual> dupInd = new ArrayList<Individual>();
+	private static ArrayList<Family> dupFam = new ArrayList<Family>();
 
 	public static void main(String[] args) throws IOException, ParseException {
 		System.out.println("Enter the Input File Path and Filename: ");
@@ -81,13 +83,13 @@ public class TeamFive {
 			// US18 - Jason Sarwar
 			//siblingsShouldNotMarry(individuals, families);
 			// US19 - Xuanhong Shen
-			// TODO
+			cousinsNotMarry(individuals, families);
 			// US20 - Patrick Hill
 			auntsAndUncles(families);
 			// US21 - Kuo Fan
 			// TODO
 			// US22 - Xuanhong Shen
-			// TODO
+			uniqueID(individuals, families);
 			// US23 - Patrick Hill
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
@@ -150,7 +152,11 @@ public class TeamFive {
 							individualParts = br.readLine();
 						} while (!individualParts.startsWith("0"));
 						line = individualParts;
+						if(!individuals.containsKey(indi.getId())){
 						individuals.put(indi.getId(), indi);
+						}else{
+							dupInd.add(indi);
+						}
 					} else if (parts[2].equals("FAM")) {
 						ArrayList<String> children = new ArrayList<String>();
 						Family fam = new Family(parts[1]);
@@ -179,7 +185,11 @@ public class TeamFive {
 							}
 							familyParts = br.readLine();
 						} while (!familyParts.startsWith("0"));
-						families.put(fam.getId(), fam);
+						if(!families.containsKey(fam.getId())){
+							families.put(fam.getId(), fam);
+							}else{
+								dupFam.add(fam);
+							}
 						line = familyParts;
 					}
 				}
@@ -1180,7 +1190,93 @@ public class TeamFive {
 		}
 	}*/
 
+	static void uniqueID(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws FileNotFoundException, IOException {
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		if (!dupInd.isEmpty()) {
+			for (int i = 0; i < dupInd.size(); i++) {
+				Individual ind1 = dupInd.get(i);
+				Individual ind2 = indMap.get(dupInd.get(i).getId());
+				writeToFile(
+						"***************************ERROR: User Story US22: Unique ID***************************************\nIndividual: "
+								+ ind1.getId() + " - " + ind1.getName() + " has the same ID as " + ind2.getId() + " - "
+								+ ind2.getName()
+								+ "\n**********************************************************************************************************\n");
+
+			}
+
+		}
+		if (!dupInd.isEmpty()) {
+			for (int i = 0; i < dupFam.size(); i++) {
+				Family fam1 = dupFam.get(i);
+				Family fam2 = famMap.get(dupFam.get(i).getId());
+				writeToFile(
+						"***************************ERROR: User Story US22: Unique ID***************************************\nIndividual: "
+								+ fam1.getId() + " has the same ID as " + fam2.getId()
+								+ "\n**********************************************************************************************************\n");
+
+			}
+		}
+
+	}
 	
+	static void cousinsNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws FileNotFoundException, IOException {
+		
+		// Sprint 3 - Xuanhong Shen - User Story US19 - Cousins should not
+				// marry
+
+				Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+				Map<String, Family> famMap = new HashMap<String, Family>(families);
+				Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+				ArrayList<String> husbGrandParent = new ArrayList<String>();
+				while (famEntries.hasNext()) {
+					Map.Entry<String, Family> famEntry = famEntries.next();
+					Family fam = famEntry.getValue();
+					Individual husb = indMap.get(fam.getHusb());
+					Individual wife = indMap.get(fam.getWife());
+					// find out the family id of husb's grandparents
+					if (husb.getChildOf() != null) {
+						Family husbFam = famMap.get(husb.getChildOf());
+						Individual husbFather = indMap.get(husbFam.getHusb());
+						Individual husbMother = indMap.get(husbFam.getWife());
+						if (husbFather.getChildOf() != null) {
+							husbGrandParent.add(husbFather.getChildOf());
+						}
+						if (husbMother.getChildOf() != null) {
+							husbGrandParent.add(husbMother.getChildOf());
+						}
+					}
+					if (wife.getChildOf() != null) {
+						Family wifeFam = famMap.get(wife.getChildOf());
+						Individual wifeFather = indMap.get(wifeFam.getHusb());
+						Individual wifeMother = indMap.get(wifeFam.getWife());
+						if (wifeFather.getChildOf() != null) {
+							if (husbGrandParent.contains(wifeFather.getChildOf())) {
+								writeToFile(
+										"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
+												+ husb.getId() + " - " + husb.getName()
+												+ " is married to his or her first cousin " + wife.getId() + " - "
+												+ wife.getName()
+												+ "\n**********************************************************************************************************\n");
+							}
+						}
+						if (wifeMother.getChildOf() != null) {
+							if (husbGrandParent.contains(wifeMother.getChildOf())) {
+								writeToFile(
+										"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
+												+ husb.getId() + " - " + husb.getName()
+												+ " is married to his or her first cousin " + wife.getId() + " - "
+												+ wife.getName()
+												+ "\n**********************************************************************************************************\n");
+							}
+						}
+					}
+
+				}
+
+			}
 	
 	
 	
