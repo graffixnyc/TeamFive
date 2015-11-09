@@ -1114,7 +1114,11 @@ public class TeamFive {
 			while (famEntries2.hasNext()) {
 				Map.Entry<String, Family> famEntry2 = famEntries2.next();
 				Family fam2 = famEntry2.getValue();
-				
+				if(fam.getHusb().equals(fam2.getHusb()) && fam.getWife().equals(fam2.getWife()) && fam.getMarriage().equals(fam2.getMarriage()) && fam.getId() != fam2.getId()) {
+					writeToFile("***************************ERROR: User Story US24: Unique Families By Spouses****************************\n"
+							+ fam.getId() + " and " + fam2.getId() + " have the same spouses and marriage dates"
+							+ "\n**********************************************************************************************************\n");
+				}
 				
 			}
 		}
