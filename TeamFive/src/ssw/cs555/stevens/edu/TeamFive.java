@@ -1101,6 +1101,67 @@ public class TeamFive {
 		}
 	}
 	
+	static void auntsAndUncles(HashMap<String, Family> families)
+			throws ParseException, FileNotFoundException, IOException {
+		// Sprint 2 Patrick Hill User Story US20 - Aunts and Uncles
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+		String fatherID=null;
+		String motherID=null;
+		String motherFamilyID=null;
+		String fatherFamilyID=null;
+		ArrayList<String> auntsUncles = new ArrayList<String>();
+		while (famEntries.hasNext()) {
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			fatherID=fam.getHusb();
+			motherID=fam.getWife();
+			Individual father=individuals.get(fatherID);
+			Individual mother=individuals.get(motherID);
+			motherFamilyID=mother.getChildOf();
+			fatherFamilyID=father.getChildOf();
+			if (motherFamilyID!=null){
+				Family motherFamily=families.get(motherFamilyID);
+				if (motherFamily.getChild()!=null && motherFamily.getChild().size()>1){
+					auntsUncles.addAll( motherFamily.getChild());
+				}
+			}
+			if (fatherFamilyID!=null){
+				Family fatherFamily=families.get(fatherFamilyID);
+				if (fatherFamily.getChild()!=null && fatherFamily.getChild().size()>1){
+					auntsUncles.addAll( fatherFamily.getChild());
+				}
+			}
+			auntsUncles.size();
+			if (fam.getChild() != null) {
+				ArrayList<String> children = fam.getChild();
+				for (int i = 0; i < children.size(); i++) {
+					Individual ind = individuals.get(children.get(i));
+					String spouseOf=ind.getSpouseOf();
+					if(spouseOf!=null){
+						Family childFam=families.get(spouseOf);
+						String spouse=childFam.getHusb();
+						if (spouse.equals(ind.getId())){
+							spouse=childFam.getWife();
+						}
+						if (auntsUncles.contains(spouse)){
+							writeToFile(
+									"***************************ERROR: User Story US20: Aunts and Uncles***************************************\nFamily ID: "
+											+ fam.getId()
+											+ "  has Children Born in the Same Month and Year and are More than 2 Days Apart\nIndividual 1: "
+											+ ind.getId() + " - " + ind.getName() + " DOB: " + ind.getBirth()
+											+ "\nIndividual 2: " + ind.getId() + " - " + ind.getName()
+											+ " DOB: " + ind.getBirth()
+											+ "\n**********************************************************************************************************\n");
+						}
+					}
+				}
+					
+			}
+		}
+				
+	}
+
 	static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
 		// Sprint 3 - Jason Sarwar - User Story US24 - Unique Families By Spouses 
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
