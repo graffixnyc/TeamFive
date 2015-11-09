@@ -83,7 +83,7 @@ public class TeamFive {
 			// US19 - Xuanhong Shen
 			// TODO
 			// US20 - Patrick Hill
-			// TODO
+			auntsAndUncles(families);
 			// US21 - Kuo Fan
 			// TODO
 			// US22 - Xuanhong Shen
@@ -190,7 +190,7 @@ public class TeamFive {
 				}
 			}
 		}
-		writeToFile(
+		writeToFile(// TODO
 				"**********************************************************************************************************\n");
 
 		br.close();
