@@ -91,7 +91,7 @@ public class TeamFive {
 			// US23 - Patrick Hill
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
-			// TODO
+			uniqueFamiliesBySpouses(individuals, families);
 			// US29 - Kuo Fan
 			// TODO
 			
