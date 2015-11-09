@@ -1068,7 +1068,6 @@ public class TeamFive {
 				writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
 						+ dad.getId + " - " + dad.getName + " and " + mom.getId + " - " + mom.getName + " are married and have the same parents"
 						+ "\n**********************************************************************************************************\n");
-			
 			}
 		}
 	}
