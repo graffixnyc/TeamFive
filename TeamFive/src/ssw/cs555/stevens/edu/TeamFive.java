@@ -1100,4 +1100,12 @@ public class TeamFive {
 			
 		}
 	}
+	
+	static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
+		// Sprint 3 - Jason Sarwar - User Story US24 - Unique Families By Spouses 
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+
+	}
+	
 }
