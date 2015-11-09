@@ -1064,7 +1064,7 @@ public class TeamFive {
 			Family fam = famEntry.getValue();
 			Individual dad = indMap.get(fam.getHusb());
 			Individual mom = indMap.get(fam.getWife());
-			if(dad.getChildOf() == mom.getChildOf()) {
+			if(dad.getChildOf().equals(mom.getChildOf())) {
 				writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
 						+ dad.getId + " - " + dad.getName + " and " + mom.getId + " - " + mom.getName + " are married and have the same parents"
 						+ "\n**********************************************************************************************************\n");
@@ -1180,5 +1180,9 @@ public class TeamFive {
 			}
 		}
 	}
+
+	
+	
+	
 	
 }
