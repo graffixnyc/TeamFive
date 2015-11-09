@@ -1145,13 +1145,10 @@ public class TeamFive {
 							spouse=childFam.getWife();
 						}
 						if (auntsUncles.contains(spouse)){
+							Individual incest=individuals.get(spouse);
 							writeToFile(
-									"***************************ERROR: User Story US20: Aunts and Uncles***************************************\nFamily ID: "
-											+ fam.getId()
-											+ "  has Children Born in the Same Month and Year and are More than 2 Days Apart\nIndividual 1: "
-											+ ind.getId() + " - " + ind.getName() + " DOB: " + ind.getBirth()
-											+ "\nIndividual 2: " + ind.getId() + " - " + ind.getName()
-											+ " DOB: " + ind.getBirth()
+									"***************************ERROR: User Story US20: Aunts and Uncles***************************************\nIndividual: "
+											+ ind.getId() + " - " + ind.getName() + " is married to either their aunt or uncle " + incest.getId() + " - " + incest.getName()
 											+ "\n**********************************************************************************************************\n");
 						}
 					}
