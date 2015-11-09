@@ -52,7 +52,6 @@
 1 BIRT
 2 DATE 19 OCT 1977
 1 FAMS @F1@
-1 FAMC @F5@
 0 @I5@ INDI
 1 NAME Elizabeth /Smith/
 2 GIVN Elizabeth
@@ -245,48 +244,47 @@
 2 DATE 20 APR 1985
 1 FAMS @F4@
 0 @I26@ INDI
-1 NAME GrandPa /Doe/
-2 GIVN GrandPa
-2 SURN Doe
-2 _MARNM Foe
+1 NAME Steve /Stevens/
+2 GIVN Steve
+2 SURN Stevens
+2 _MARNM Stevens
 1 SEX M
 1 BIRT
 2 DATE 20 APR 1985
 1 FAMS @F6@
 0 @I27@ INDI
-1 NAME GrandMa /Doe/
-2 GIVN GrandMa
-2 SURN Doe
-2 _MARNM Foe
+1 NAME Elizabeth /Stevens/
+2 GIVN Elizabeth
+2 SURN Stevens
+2 _MARNM Walters
 1 SEX F
 1 BIRT
 2 DATE 20 APR 1985
 1 FAMS @F6@
 0 @I28@ INDI
-1 NAME Hus1 /Doe/
-2 GIVN Hus1
-2 SURN Doe
-2 _MARNM Foe
+1 NAME Charles /Stevens/
+2 GIVN Charles
+2 SURN Stevens
+2 _MARNM 
 1 SEX M
 1 BIRT
 2 DATE 20 APR 1985
 1 FAMS @F7@
 1 FAMC @F6@
 0 @I29@ INDI
-1 NAME GrandMa /Doe/
-2 GIVN GrandMa
-2 SURN Doe
-2 _MARNM Foe
+1 NAME Pete /Stevens/
+2 GIVN Pete
+2 SURN Stevens
+2 _MARNM 
 1 SEX F
 1 BIRT
 2 DATE 20 APR 1985
 1 FAMS @F8@
 1 FAMC @F6@
 0 @I30@ INDI
-1 NAME GrandMa /Doe/
-2 GIVN GrandMa
-2 SURN Doe
-2 _MARNM Foe
+1 NAME Janis /Stevens/
+2 GIVN Janis
+2 SURN Stevens
 1 SEX F
 1 BIRT
 2 DATE 20 APR 1985
@@ -353,7 +351,6 @@
 0 @F5@ FAM
 1 HUSB @I23@
 1 WIFE @I24@
-1 CHIL @I4@
 1 CHIL @I25@
 1 MARR
 2 DATE 25 MAR 1982
