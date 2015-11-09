@@ -1132,7 +1132,6 @@ public class TeamFive {
 					auntsUncles.addAll( fatherFamily.getChild());
 				}
 			}
-			auntsUncles.size();
 			if (fam.getChild() != null) {
 				ArrayList<String> children = fam.getChild();
 				for (int i = 0; i < children.size(); i++) {
