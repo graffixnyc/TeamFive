@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-
 public class TeamFive {
 	// lists to hold data
 	private static HashMap<String, Family> families = new HashMap<String, Family>();
@@ -90,13 +90,17 @@ public class TeamFive {
 			currGenForRole(individuals, families);
 			// US22 - Xuanhong Shen
 			uniqueID(individuals, families);
-			// US23 - Patrick Hill
+			// US23 - PatricUnparseable date: "Tue Nov 10 12:43:34 EST 2015"k Hill
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
 			uniqueFamiliesBySpouses(individuals, families);
 			// US29 - Kuo Fan
 			listDeceased(individuals);
 			// TODO
+			
+			// ****SPRINT 4****
+			upcomingBirthdays(individuals);
+			upcomingAnniversaries(families);
 			
 		} catch (FileNotFoundException ex) {
 			System.out.println("File Not Found. Please Check Path and Filename");
@@ -837,6 +841,7 @@ public class TeamFive {
 		// Sprint 2 - Jason Sarwar - User Story US11 - No bigamy
 
 	}
+	
 	static void multiplebirthslessthan5(HashMap<String, Family> families)throws ParseException, FileNotFoundException, IOException{
 		// Sprint 2 - Kuo Fan - User Story US14 - Multiple births less than 5
 		Map<String, Family>famMap=new HashMap<String, Family>(families);
@@ -887,6 +892,7 @@ public class TeamFive {
 		
 		
 	}
+	
 	static void Maillastname(HashMap<String, Family> families)throws ParseException, FileNotFoundException, IOException{
 		// Sprint 2 - Kuo Fan - User Story US16 - Old Male last names
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
@@ -940,7 +946,6 @@ public class TeamFive {
 		}		
 	}
 	
-
 	static void parentsNotTooOld(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 2 - Jason Sarwar - User Story US12 - Parents not too old
@@ -993,7 +998,7 @@ public class TeamFive {
 				e.printStackTrace();
 			}
 		}
-
+		
 	}
 
 	static void siblingSpacing(HashMap<String, Family> families)
@@ -1082,10 +1087,7 @@ public class TeamFive {
 			}
 		}
 	}
-	
-	
-	
-	
+		
 	static void uniqueNameAndBirthdate(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
 		// Sprint 3 Patrick Hill User Story US23 - Unique Names and Birthdates
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
@@ -1310,6 +1312,7 @@ public class TeamFive {
 				
 		}		
 	}
+	
 	static void listDeceased(HashMap<String, Individual> individuals)
 			throws ParseException, FileNotFoundException, IOException{
 		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
@@ -1329,4 +1332,78 @@ public class TeamFive {
 		}		
 	}
 	
+	static void upcomingBirthdays(HashMap<String,Individual> individuals) throws FileNotFoundException, IOException{
+		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
+		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
+		Date nowTime = new Date(System.currentTimeMillis());
+		String nowdate1 = sdf.format(nowTime);
+		//Date nowdate = null;
+		Calendar cal1 = Calendar.getInstance();
+	     Calendar cal2 =Calendar.getInstance();
+	     int diffDay=0;
+	     int diffMonth=0;
+		while (entries.hasNext()) {
+			Map.Entry<String, Individual> entry = entries.next();
+			Individual indi = entry.getValue();
+			// Get the date of birth and date of death
+			Date date_of_birth = null;
+			Date todaysdateparsed=null;
+			try {
+				date_of_birth = sdf.parse(indi.getBirth());
+				todaysdateparsed = sdf.parse(nowdate1.toString());
+				cal1.setTime(date_of_birth);
+				cal2.setTime(nowTime);
+				diffDay = Math.abs(cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH));
+				diffMonth = Math.abs(cal2.get(Calendar.MONTH) - cal1.get(Calendar.MONTH));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// Comparing the dates
+			if (diffMonth==0 && diffDay<30){
+					writeToFile(
+							"***************************ERROR: User Story US38: Upcoming Birthday**************************************\nIndividual: "
+									+ indi.getId() + " - " + indi.getName() + " has a birthday less than 30 days from today\nDOB: "
+									+ indi.getBirth() 
+									+ "\n**********************************************************************************************************\n");
+		}
+	}
+}
+	
+	static void upcomingAnniversaries(HashMap<String,Family> families) throws FileNotFoundException, IOException{
+		Map<String, Family> map = new HashMap<String, Family>(families);
+		Iterator<Map.Entry<String, Family>> entries = map.entrySet().iterator();
+		Date nowTime = new Date(System.currentTimeMillis());
+		String nowdate1 = sdf.format(nowTime);
+		//Date nowdate = null;
+		Calendar cal1 = Calendar.getInstance();
+	     Calendar cal2 =Calendar.getInstance();
+	     int diffDay=0;
+	     int diffMonth=0;
+		while (entries.hasNext()) {
+			Map.Entry<String, Family> entry = entries.next();
+			Family fam = entry.getValue();
+			// Get the date of birth and date of death
+			Date date_of_marriage= null;
+			try {
+				date_of_marriage = sdf.parse(fam.getMarriage());
+				cal1.setTime(date_of_marriage);
+				cal2.setTime(nowTime);
+				diffDay = Math.abs(cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH));
+				diffMonth = Math.abs(cal2.get(Calendar.MONTH) - cal1.get(Calendar.MONTH));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// Comparing the dates
+			if (diffMonth==0 && diffDay<30){
+					writeToFile(
+							"***************************ERROR: User Story US39: Upcoming Anniversery**************************************\nFamily: "
+									+ fam.getId() +  " has an anniversery less than 30 days from today\nDate Of Marriage: "
+									+ fam.getMarriage() 
+									+ "\n**********************************************************************************************************\n");
+		}
+	}
+
+	}
 }
