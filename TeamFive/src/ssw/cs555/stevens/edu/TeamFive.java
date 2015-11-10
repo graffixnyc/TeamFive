@@ -1333,13 +1333,12 @@ public class TeamFive {
 	}
 	
 	static void upcomingBirthdays(HashMap<String,Individual> individuals) throws FileNotFoundException, IOException{
+		//Sprint 4 US 38 Upcoming Birthdays  - Patrick Hill 
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
-		String nowdate1 = sdf.format(nowTime);
-		//Date nowdate = null;
 		Calendar cal1 = Calendar.getInstance();
-	     Calendar cal2 =Calendar.getInstance();
+	    Calendar cal2 =Calendar.getInstance();
 	     int diffDay=0;
 	     int diffMonth=0;
 		while (entries.hasNext()) {
@@ -1347,10 +1346,8 @@ public class TeamFive {
 			Individual indi = entry.getValue();
 			// Get the date of birth and date of death
 			Date date_of_birth = null;
-			Date todaysdateparsed=null;
 			try {
 				date_of_birth = sdf.parse(indi.getBirth());
-				todaysdateparsed = sdf.parse(nowdate1.toString());
 				cal1.setTime(date_of_birth);
 				cal2.setTime(nowTime);
 				diffDay = Math.abs(cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH));
@@ -1371,11 +1368,10 @@ public class TeamFive {
 }
 	
 	static void upcomingAnniversaries(HashMap<String,Family> families) throws FileNotFoundException, IOException{
+		//Sprint 4 US 39 Upcoming Anniversaries  - Patrick Hill 
 		Map<String, Family> map = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
-		String nowdate1 = sdf.format(nowTime);
-		//Date nowdate = null;
 		Calendar cal1 = Calendar.getInstance();
 	     Calendar cal2 =Calendar.getInstance();
 	     int diffDay=0;
