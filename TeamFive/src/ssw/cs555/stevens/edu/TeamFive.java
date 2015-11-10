@@ -81,7 +81,7 @@ public class TeamFive {
 			// ****Sprint 3****
 			
 			// US18 - Jason Sarwar
-			//siblingsShouldNotMarry(individuals, families);
+			siblingsShouldNotMarry(individuals, families);
 			// US19 - Xuanhong Shen
 			cousinsNotMarry(individuals, families);
 			// US20 - Patrick Hill
@@ -93,7 +93,7 @@ public class TeamFive {
 			// US23 - Patrick Hill
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
-			//uniqueFamiliesBySpouses(individuals, families);
+			uniqueFamiliesBySpouses(individuals, families);
 			// US29 - Kuo Fan
 			// TODO
 			
@@ -1062,7 +1062,7 @@ public class TeamFive {
 		}
 	}
 	
-	/*static void siblingsShouldNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
+	static void siblingsShouldNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
 		// Sprint 3 - Jason Sarwar - User Story US18 - Siblings Should Not Marry 
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
@@ -1076,11 +1076,11 @@ public class TeamFive {
 			Individual mom = indMap.get(fam.getWife());
 			if(dad.getChildOf().equals(mom.getChildOf())) {
 				writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
-						+ dad.getId + " - " + dad.getName + " and " + mom.getId + " - " + mom.getName + " are married and have the same parents"
+						+ dad.getId() + " - " + dad.getName() + " and " + mom.getId() + " - " + mom.getName() + " are married and have the same parents"
 						+ "\n**********************************************************************************************************\n");
 			}
 		}
-	}*/
+	}
 	
 	
 	
@@ -1167,13 +1167,13 @@ public class TeamFive {
 				
 	}
 
-	/*static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
+	static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
 		// Sprint 3 - Jason Sarwar - User Story US24 - Unique Families By Spouses 
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
 		while (famEntries.hasNext()) {
-			Map.Entry<String, Individual> famEntry = famEntries.next();
+			Map.Entry<String, Family> famEntry = famEntries.next();
 			Family fam = famEntry.getValue();
 			Map<String, Family> famMap2 = new HashMap<String, Family>(families);
 			Iterator<Map.Entry<String, Family>> famEntries2 = famMap2.entrySet().iterator();
@@ -1188,7 +1188,7 @@ public class TeamFive {
 				
 			}
 		}
-	}*/
+	}
 
 	static void uniqueID(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws FileNotFoundException, IOException {
