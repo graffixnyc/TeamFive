@@ -1074,10 +1074,12 @@ public class TeamFive {
 			Family fam = famEntry.getValue();
 			Individual dad = indMap.get(fam.getHusb());
 			Individual mom = indMap.get(fam.getWife());
-			if(dad.getChildOf().equals(mom.getChildOf())) {
-				writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
-						+ dad.getId() + " - " + dad.getName() + " and " + mom.getId() + " - " + mom.getName() + " are married and have the same parents"
-						+ "\n**********************************************************************************************************\n");
+			if(dad.getChildOf() != null && mom.getChildOf() != null) {
+				if(dad.getChildOf().equals(mom.getChildOf())) {
+					writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
+							+ dad.getId() + " - " + dad.getName() + " and " + mom.getId() + " - " + mom.getName() + " are married and have the same parents"
+							+ "\n**********************************************************************************************************\n");
+				}
 			}
 		}
 	}
@@ -1180,12 +1182,13 @@ public class TeamFive {
 			while (famEntries2.hasNext()) {
 				Map.Entry<String, Family> famEntry2 = famEntries2.next();
 				Family fam2 = famEntry2.getValue();
-				if(fam.getHusb().equals(fam2.getHusb()) && fam.getWife().equals(fam2.getWife()) && fam.getMarriage().equals(fam2.getMarriage()) && fam.getId() != fam2.getId()) {
-					writeToFile("***************************ERROR: User Story US24: Unique Families By Spouses****************************\n"
-							+ fam.getId() + " and " + fam2.getId() + " have the same spouses and marriage dates"
-							+ "\n**********************************************************************************************************\n");
+				if(fam.getHusb() != null && fam2.getHusb() != null && fam.getWife() != null && fam2.getWife() != null) {
+					if(fam.getHusb().equals(fam2.getHusb()) && fam.getWife().equals(fam2.getWife()) && fam.getMarriage().equals(fam2.getMarriage()) && fam.getId() != fam2.getId()) {
+						writeToFile("***************************ERROR: User Story US24: Unique Families By Spouses****************************\n"
+								+ fam.getId() + " and " + fam2.getId() + " have the same spouses and marriage dates"
+								+ "\n**********************************************************************************************************\n");
+					}
 				}
-				
 			}
 		}
 	}
