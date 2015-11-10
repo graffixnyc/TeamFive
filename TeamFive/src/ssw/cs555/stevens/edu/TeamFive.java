@@ -939,54 +939,7 @@ public class TeamFive {
 		
 		}		
 	}
-	static void currGenForRole(HashMap<String, Individual> individuals, HashMap<String, Family> families)
-			throws ParseException, FileNotFoundException, IOException{
-		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
-		Map<String, Family> famMap = new HashMap<String, Family>(families);
-		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
-		if(famEntries.hasNext()){
-			Map.Entry<String, Family> famEntry = famEntries.next();
-			Family fam = famEntry.getValue();
-			Individual husb = indMap.get(fam.getHusb());
-			Individual wife = indMap.get(fam.getWife());
-			if(husb.getSex()!="male"){
-				writeToFile(
-						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
-								+ husb.getId()
-								+ "  Husband is not male "
-								+ "\n**********************************************************************************************************\n");
-				
-			}
-			else if (wife.getSex()!="famale"){
-				writeToFile(
-						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
-								+ wife.getId()
-								+ "  wife is not famale "
-								+ "\n**********************************************************************************************************\n");
-			}
-				
-				
-		}		
-	}
-	static void listDeceased(HashMap<String, Individual> individuals)
-			throws ParseException, FileNotFoundException, IOException{
-		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
-		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
-		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
-		if(indEntries.hasNext()){
-			Map.Entry<String, Individual> indEntry = indEntries.next();
-			Individual ind = indEntry.getValue();
-			if(ind.getDeath()!=null){
-				writeToFile(
-						"***************************ERROR: User Story User Story US29 List all deceased individuals in a GEDCOM file ****************************************\nFamily ID: "
-								+ ind.getId()
-								+ "   is dead "
-								+ "\n**********************************************************************************************************\n");
-				
-			}				
-		}		
-	}
+	
 
 	static void parentsNotTooOld(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
@@ -1327,6 +1280,53 @@ public class TeamFive {
 
 			}
 	
-	
+	static void currGenForRole(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws ParseException, FileNotFoundException, IOException{
+		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		if(famEntries.hasNext()){
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			Individual husb = indMap.get(fam.getHusb());
+			Individual wife = indMap.get(fam.getWife());
+			if(husb.getSex()!="male"){
+				writeToFile(
+						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
+								+ husb.getId()
+								+ "  Husband is not male "
+								+ "\n**********************************************************************************************************\n");
+				
+			}
+			else if (wife.getSex()!="female"){
+				writeToFile(
+						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
+								+ wife.getId()
+								+ "  wife is not famale "
+								+ "\n**********************************************************************************************************\n");
+			}
+				
+				
+		}		
+	}
+	static void listDeceased(HashMap<String, Individual> individuals)
+			throws ParseException, FileNotFoundException, IOException{
+		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		if(indEntries.hasNext()){
+			Map.Entry<String, Individual> indEntry = indEntries.next();
+			Individual ind = indEntry.getValue();
+			if(ind.getDeath()!=null){
+				writeToFile(
+						"***************************ERROR: User Story User Story US29 List all deceased individuals in a GEDCOM file ****************************************\nFamily ID: "
+								+ ind.getId()
+								+ "   is dead "
+								+ "\n**********************************************************************************************************\n");
+				
+			}				
+		}		
+	}
 	
 }
