@@ -1381,10 +1381,58 @@ public class TeamFive {
 	
 	static void listRecentSurvivors(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US37 - List Recent Survivors
-	
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		
+		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		writeToFile("******User Story US37 - List of Recent Survivors:\n");
+		while (indEntries.hasNext()) {
+			Map.Entry<String, Individual> indEntry = indEntries.next();
+			Individual ind = indEntry.getValue();
+			
+			if(ind.getDeath() != null) {
+			
+				Calendar cal = Calender.getInstance();
+				Date now = sdf.format(cal.getTime());
+				Date deathDate = sdf.parse(ind.getDeath());
+				long diff = (now.getTime() - deathDate.getTime()) / (1000 * 60 * 60 * 24);
+				if(diff < 30) {
+					Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+					while (famEntries.hasNext()) {
+						Map.Entry<String, Family> famEntry = famEntries.next();
+						Family fam = famEntry.getValue();
+						if(ind.getId().equals(fam.getHusb())) {
+							Individual wife = individuals.get(fam.getWife());
+							writeToFile(wife.getName() + "\n");
+							allDescendants(fam.getId(), families);
+						}
+						if(ind.getId().equals(fam.getWife())) {
+							Individual husband = individuals.get(fam.getHusb());
+							writeToFile(husband.getName() + "\n");
+							allDescendants(fam.getId());
+						}
+											
+												
+					}
+					
+				}
+				
+			}
+		}
 	}
 	
-	
+	static void allDescendants(String famId) throws ParseException, FileNotFoundException, IOException{
+		// Helper function for US37 - Jason Sarwar
+		Family fam = families.get(famId);
+		ArrayList<String> listOfChildren = fam.getChild();
+		if(listOfChildren != null) {
+			for(int i = 0; i < listOfChildren.size(); i++) {
+				Individual child = individuals.get(listOfChildren[i]);
+				writeToFile(child.getName() + "\n");
+				allDescendants(listOfChildren[i]);
+			}
+		}
+	}
 	
 	
 	static void upcomingBirthdays(HashMap<String,Individual> individuals) throws FileNotFoundException, IOException{
