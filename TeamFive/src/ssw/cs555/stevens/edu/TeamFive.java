@@ -1345,6 +1345,7 @@ public class TeamFive {
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		
 		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		writeToFile("******User Story US31 - List of Living Single Individuals 30 years and older:\n");
 		while (indEntries.hasNext()) {
 			Map.Entry<String, Individual> indEntry = indEntries.next();
 			Individual ind = indEntry.getValue();
@@ -1361,15 +1362,18 @@ public class TeamFive {
 			}
 			
 			Calendar cal = Calender.getInstance();
-			Date now = sdf.format(cal.getDate);
+			Date now = sdf.format(cal.getTime());
+			Date birthDate = sdf.parse(ind.getBirth());
+			long diff = (now.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365);
 			
-			
-			if(!exists && ind.) {
+			if(!exists && diff >= 30) {
 				writeToFile(ind.getName() + "\n");
 			}
 				
 			
 		}
+		
+		writeToFile("\n");
 		
 	}
 	
