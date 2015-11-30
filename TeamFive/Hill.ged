@@ -358,6 +358,7 @@
 1 FAMS @F12@
 1 FAMC @F11@
 0 @I37@ INDI
+<<<<<<< Updated upstream
 1 NAME Jason /Sarwar/
 2 GIVN Jason
 2 SURN Sarwar
@@ -371,6 +372,27 @@
 1 SEX M
 1 BIRT
 2 DATE 21 APR 1975
+=======
+1 NAME Peter /Johnson/
+2 GIVN Peter
+2 SURN Johnson
+1 SEX M
+1 BIRT
+2 DATE 30 NOV 2015
+1 FAMS @F12@
+1 FAMC @F11@
+0 @I38@ INDI
+1 NAME John /Johnson/
+2 GIVN John
+2 SURN Johnson
+1 SEX M
+1 BIRT
+2 DATE 30 NOV 1995
+1 DEAT Y
+2 DATE 30 NOV 2015
+1 FAMS @F12@
+1 FAMC @F11@
+>>>>>>> Stashed changes
 0 @F1@ FAM
 1 HUSB @I1@
 1 WIFE @I4@

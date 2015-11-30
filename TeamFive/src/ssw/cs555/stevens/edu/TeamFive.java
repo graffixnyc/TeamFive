@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+
 public class TeamFive {
 	// lists to hold data
 	private static HashMap<String, Family> families = new HashMap<String, Family>();
@@ -77,9 +78,9 @@ public class TeamFive {
 			fewerThanFifteenSiblings(families);
 			// US16 - Kuo Fan
 			// TODO
-			
+
 			// ****Sprint 3****
-			
+
 			// US18 - Jason Sarwar
 			siblingsShouldNotMarry(individuals, families);
 			// US19 - Xuanhong Shen
@@ -90,13 +91,19 @@ public class TeamFive {
 			currGenForRole(individuals, families);
 			// US22 - Xuanhong Shen
 			uniqueID(individuals, families);
+<<<<<<< Updated upstream
 			// US23 - Patrick Hill
+=======
+			// US23 - PatricUnparseable date: "Tue Nov 10 12:43:34 EST 2015"k
+			// Hill
+>>>>>>> Stashed changes
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
 			uniqueFamiliesBySpouses(individuals, families);
 			// US29 - Kuo Fan
 			listDeceased(individuals);
 			// TODO
+<<<<<<< Updated upstream
 			
 			// ****Sprint 4****
 			
@@ -104,11 +111,27 @@ public class TeamFive {
 			// TODO
 			// US37 - Jason Sarwar
 			// TODO
+=======
+
+			// ****SPRINT 4****
+			// US31 - Jason Sarwar
+
+			// US33 - Kuo Fan
+
+			// US34 - Kuo Fan
+
+			// US35 - Xuanhong Shen
+			recentBirth(individuals);
+			// US36 - Xuanhong Shen
+			recentDeath(individuals);
+			// US37 - Jason Sarwar
+
+>>>>>>> Stashed changes
 			// US38 - Patrick Hill
 			upcomingBirthdays(individuals);
 			// US39 - Patrick Hill
 			upcomingAnniversaries(families);
-			
+
 		} catch (FileNotFoundException ex) {
 			System.out.println("File Not Found. Please Check Path and Filename");
 			main(null);
@@ -164,9 +187,9 @@ public class TeamFive {
 							individualParts = br.readLine();
 						} while (!individualParts.startsWith("0"));
 						line = individualParts;
-						if(!individuals.containsKey(indi.getId())){
-						individuals.put(indi.getId(), indi);
-						}else{
+						if (!individuals.containsKey(indi.getId())) {
+							individuals.put(indi.getId(), indi);
+						} else {
 							dupInd.add(indi);
 						}
 					} else if (parts[2].equals("FAM")) {
@@ -197,11 +220,11 @@ public class TeamFive {
 							}
 							familyParts = br.readLine();
 						} while (!familyParts.startsWith("0"));
-						if(!families.containsKey(fam.getId())){
+						if (!families.containsKey(fam.getId())) {
 							families.put(fam.getId(), fam);
-							}else{
-								dupFam.add(fam);
-							}
+						} else {
+							dupFam.add(fam);
+						}
 						line = familyParts;
 					}
 				}
@@ -848,17 +871,18 @@ public class TeamFive {
 		// Sprint 2 - Jason Sarwar - User Story US11 - No bigamy
 
 	}
-	
-	static void multiplebirthslessthan5(HashMap<String, Family> families)throws ParseException, FileNotFoundException, IOException{
+
+	static void multiplebirthslessthan5(HashMap<String, Family> families)
+			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 2 - Kuo Fan - User Story US14 - Multiple births less than 5
-		Map<String, Family>famMap=new HashMap<String, Family>(families);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
 		Date sib1;
 		Date sib2;
 		Calendar calendar1 = Calendar.getInstance();
 		Calendar calendar2 = Calendar.getInstance();
 		int count = 0;
-		while (famEntries.hasNext()){
+		while (famEntries.hasNext()) {
 			HashMap<String, String> childMap = new HashMap<String, String>();
 			Map.Entry<String, Family> famEntry = famEntries.next();
 			Family fam = famEntry.getValue();
@@ -874,85 +898,78 @@ public class TeamFive {
 					sib1 = sdf.parse(pair.getValue().toString());
 					calendar1.setTime(sib1);
 					Iterator it2 = childMap.entrySet().iterator();
-					while (it2.hasNext()){
+					while (it2.hasNext()) {
 						Map.Entry pair2 = (Map.Entry) it2.next();
 						sib2 = sdf.parse(pair2.getValue().toString());
-						calendar2.setTime(sib2);	
-						if ((calendar1== calendar2)&& pair.getKey() != pair2.getKey())
-						{
-							count++;						
+						calendar2.setTime(sib2);
+						if ((calendar1 == calendar2) && pair.getKey() != pair2.getKey()) {
+							count++;
 						}
-						if (count>5)
-						{
+						if (count > 5) {
 							writeToFile(
 									"***************************ERROR: User Story US14: Multiple births less than 5****************************************\nFamily ID: "
-											+ fam.getId()
-											+ "   More than five siblings born at the same time "
+											+ fam.getId() + "   More than five siblings born at the same time "
 											+ "\n**********************************************************************************************************\n");
 						}
 					}
-					
+
 				}
 				childMap = null;
 			}
 		}
-		
-		
+
 	}
-	
-	static void Maillastname(HashMap<String, Family> families)throws ParseException, FileNotFoundException, IOException{
+
+	static void Maillastname(HashMap<String, Family> families)
+			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 2 - Kuo Fan - User Story US16 - Old Male last names
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
-		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();	
+		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
 		String lastname;
 		String male = null;
 		String lastname1;
 		String lastname2;
-		if(entries.hasNext()){
-		HashMap<String, String> nameMap = new HashMap<String, String>();		
-		Map.Entry<String, Individual> indi=entries.next();
-		Map.Entry<String, Family> famEntry = famEntries.next();
-		Family fam = famEntry.getValue();
-		if (fam.getChild() != null && fam.getChild().size() > 1){
-			ArrayList<String> children = fam.getChild();	
-			for (int i = 0; i < children.size(); i++){
-				Individual ind=individuals.get(children.get(i));
-				String fullname = ind.getName();
-				male=ind.getSex();
-				String[] words=fullname.split(" ");
-				lastname=words[1];	
-				nameMap.put(male, lastname);
-			}
-			Iterator it = nameMap.entrySet().iterator();
-			while(it.hasNext()){
-				Map.Entry pair = (Map.Entry) it.next();
-				lastname1=pair.getValue().toString();
-				Iterator it2 = nameMap.entrySet().iterator();
-				while (it2.hasNext()) {
-					Map.Entry pair2 = (Map.Entry) it2.next();
-					lastname2 = pair2.getValue().toString();	
-					if(lastname1!=lastname2&&male=="male"){
-						writeToFile(
-								"***************************ERROR: User Story US16:Male last name ****************************************\nFamily ID: "
-										+ fam.getId()
-										+ "   family numbers don't have same last name "
-										+ "\n**********************************************************************************************************\n");
-					}
-					
-					
+		if (entries.hasNext()) {
+			HashMap<String, String> nameMap = new HashMap<String, String>();
+			Map.Entry<String, Individual> indi = entries.next();
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			if (fam.getChild() != null && fam.getChild().size() > 1) {
+				ArrayList<String> children = fam.getChild();
+				for (int i = 0; i < children.size(); i++) {
+					Individual ind = individuals.get(children.get(i));
+					String fullname = ind.getName();
+					male = ind.getSex();
+					String[] words = fullname.split(" ");
+					lastname = words[1];
+					nameMap.put(male, lastname);
 				}
-				
+				Iterator it = nameMap.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					lastname1 = pair.getValue().toString();
+					Iterator it2 = nameMap.entrySet().iterator();
+					while (it2.hasNext()) {
+						Map.Entry pair2 = (Map.Entry) it2.next();
+						lastname2 = pair2.getValue().toString();
+						if (lastname1 != lastname2 && male == "male") {
+							writeToFile(
+									"***************************ERROR: User Story US16:Male last name ****************************************\nFamily ID: "
+											+ fam.getId() + "   family numbers don't have same last name "
+											+ "\n**********************************************************************************************************\n");
+						}
+
+					}
+
+				}
+				nameMap = null;
 			}
-			nameMap = null;
+
 		}
-		
-		
-		
-		}		
 	}
-	
+
 	static void parentsNotTooOld(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 2 - Jason Sarwar - User Story US12 - Parents not too old
@@ -1005,7 +1022,7 @@ public class TeamFive {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	static void siblingSpacing(HashMap<String, Family> families)
@@ -1072,9 +1089,10 @@ public class TeamFive {
 			}
 		}
 	}
-	
-	static void siblingsShouldNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
-		// Sprint 3 - Jason Sarwar - User Story US18 - Siblings Should Not Marry 
+
+	static void siblingsShouldNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws FileNotFoundException, IOException {
+		// Sprint 3 - Jason Sarwar - User Story US18 - Siblings Should Not Marry
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 
@@ -1085,17 +1103,20 @@ public class TeamFive {
 			Family fam = famEntry.getValue();
 			Individual dad = indMap.get(fam.getHusb());
 			Individual mom = indMap.get(fam.getWife());
-			if(dad.getChildOf() != null && mom.getChildOf() != null) {
-				if(dad.getChildOf().equals(mom.getChildOf())) {
-					writeToFile("***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
-							+ dad.getId() + " - " + dad.getName() + " and " + mom.getId() + " - " + mom.getName() + " are married and have the same parents"
-							+ "\n**********************************************************************************************************\n");
+			if (dad.getChildOf() != null && mom.getChildOf() != null) {
+				if (dad.getChildOf().equals(mom.getChildOf())) {
+					writeToFile(
+							"***********************ERROR: User Story US18: Siblings Should Not Marry***********************\n"
+									+ dad.getId() + " - " + dad.getName() + " and " + mom.getId() + " - "
+									+ mom.getName() + " are married and have the same parents"
+									+ "\n**********************************************************************************************************\n");
 				}
 			}
 		}
 	}
-		
-	static void uniqueNameAndBirthdate(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
+
+	static void uniqueNameAndBirthdate(HashMap<String, Individual> individuals)
+			throws FileNotFoundException, IOException {
 		// Sprint 3 Patrick Hill User Story US23 - Unique Names and Birthdates
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
@@ -1107,78 +1128,83 @@ public class TeamFive {
 			while (indEntries2.hasNext()) {
 				Map.Entry<String, Individual> indEntry2 = indEntries2.next();
 				Individual ind2 = indEntry2.getValue();
-				if ((ind.getName().equals(ind2.getName())) && (ind.getBirth().equals(ind2.getBirth())) && (ind.getId()!=ind2.getId()) ) {
-						writeToFile(
-								"***************************ERROR: User Story US23: Unique Names and Birthdates****************************\nIndividual: "
-										+  ind.getId() + " - " + ind.getName() 
-										+ "  has The same name and birthdate as Individual: " + ind2.getId() + " - " + ind2.getName()+ "\nThe DOB for both is: "
-										+ ind.getBirth()
-										+ "\n**********************************************************************************************************\n");
+				if ((ind.getName().equals(ind2.getName())) && (ind.getBirth().equals(ind2.getBirth()))
+						&& (ind.getId() != ind2.getId())) {
+					writeToFile(
+							"***************************ERROR: User Story US23: Unique Names and Birthdates****************************\nIndividual: "
+									+ ind.getId() + " - " + ind.getName()
+									+ "  has The same name and birthdate as Individual: " + ind2.getId() + " - "
+									+ ind2.getName() + "\nThe DOB for both is: " + ind.getBirth()
+									+ "\n**********************************************************************************************************\n");
 				}
 			}
-			
+
 		}
 	}
-	
+
 	static void auntsAndUncles(HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 2 Patrick Hill User Story US20 - Aunts and Uncles
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-		String fatherID=null;
-		String motherID=null;
-		String motherFamilyID=null;
-		String fatherFamilyID=null;
+		String fatherID = null;
+		String motherID = null;
+		String motherFamilyID = null;
+		String fatherFamilyID = null;
 		ArrayList<String> auntsUncles = new ArrayList<String>();
 		while (famEntries.hasNext()) {
 			Map.Entry<String, Family> famEntry = famEntries.next();
 			Family fam = famEntry.getValue();
-			fatherID=fam.getHusb();
-			motherID=fam.getWife();
-			Individual father=individuals.get(fatherID);
-			Individual mother=individuals.get(motherID);
-			motherFamilyID=mother.getChildOf();
-			fatherFamilyID=father.getChildOf();
-			if (motherFamilyID!=null){
-				Family motherFamily=families.get(motherFamilyID);
-				if (motherFamily.getChild()!=null && motherFamily.getChild().size()>1){
-					auntsUncles.addAll( motherFamily.getChild());
+			fatherID = fam.getHusb();
+			motherID = fam.getWife();
+			Individual father = individuals.get(fatherID);
+			Individual mother = individuals.get(motherID);
+			motherFamilyID = mother.getChildOf();
+			fatherFamilyID = father.getChildOf();
+			if (motherFamilyID != null) {
+				Family motherFamily = families.get(motherFamilyID);
+				if (motherFamily.getChild() != null && motherFamily.getChild().size() > 1) {
+					auntsUncles.addAll(motherFamily.getChild());
 				}
 			}
-			if (fatherFamilyID!=null){
-				Family fatherFamily=families.get(fatherFamilyID);
-				if (fatherFamily.getChild()!=null && fatherFamily.getChild().size()>1){
-					auntsUncles.addAll( fatherFamily.getChild());
+			if (fatherFamilyID != null) {
+				Family fatherFamily = families.get(fatherFamilyID);
+				if (fatherFamily.getChild() != null && fatherFamily.getChild().size() > 1) {
+					auntsUncles.addAll(fatherFamily.getChild());
 				}
 			}
 			if (fam.getChild() != null) {
 				ArrayList<String> children = fam.getChild();
 				for (int i = 0; i < children.size(); i++) {
 					Individual ind = individuals.get(children.get(i));
-					String spouseOf=ind.getSpouseOf();
-					if(spouseOf!=null){
-						Family childFam=families.get(spouseOf);
-						String spouse=childFam.getHusb();
-						if (spouse.equals(ind.getId())){
-							spouse=childFam.getWife();
+					String spouseOf = ind.getSpouseOf();
+					if (spouseOf != null) {
+						Family childFam = families.get(spouseOf);
+						String spouse = childFam.getHusb();
+						if (spouse.equals(ind.getId())) {
+							spouse = childFam.getWife();
 						}
-						if (auntsUncles.contains(spouse)){
-							Individual incest=individuals.get(spouse);
+						if (auntsUncles.contains(spouse)) {
+							Individual incest = individuals.get(spouse);
 							writeToFile(
 									"***************************ERROR: User Story US20: Aunts and Uncles***************************************\nIndividual: "
-											+ ind.getId() + " - " + ind.getName() + " is married to either their aunt or uncle " + incest.getId() + " - " + incest.getName()
+											+ ind.getId() + " - " + ind.getName()
+											+ " is married to either their aunt or uncle " + incest.getId() + " - "
+											+ incest.getName()
 											+ "\n**********************************************************************************************************\n");
 						}
 					}
 				}
-					
+
 			}
 		}
-				
+
 	}
 
-	static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws FileNotFoundException, IOException {
-		// Sprint 3 - Jason Sarwar - User Story US24 - Unique Families By Spouses 
+	static void uniqueFamiliesBySpouses(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws FileNotFoundException, IOException {
+		// Sprint 3 - Jason Sarwar - User Story US24 - Unique Families By
+		// Spouses
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
@@ -1190,11 +1216,15 @@ public class TeamFive {
 			while (famEntries2.hasNext()) {
 				Map.Entry<String, Family> famEntry2 = famEntries2.next();
 				Family fam2 = famEntry2.getValue();
-				if(fam.getHusb() != null && fam2.getHusb() != null && fam.getWife() != null && fam2.getWife() != null) {
-					if(fam.getHusb().equals(fam2.getHusb()) && fam.getWife().equals(fam2.getWife()) && fam.getMarriage().equals(fam2.getMarriage()) && fam.getId() != fam2.getId()) {
-						writeToFile("***************************ERROR: User Story US24: Unique Families By Spouses****************************\n"
-								+ fam.getId() + " and " + fam2.getId() + " have the same spouses and marriage dates"
-								+ "\n**********************************************************************************************************\n");
+				if (fam.getHusb() != null && fam2.getHusb() != null && fam.getWife() != null
+						&& fam2.getWife() != null) {
+					if (fam.getHusb().equals(fam2.getHusb()) && fam.getWife().equals(fam2.getWife())
+							&& fam.getMarriage().equals(fam2.getMarriage()) && fam.getId() != fam2.getId()) {
+						writeToFile(
+								"***************************ERROR: User Story US24: Unique Families By Spouses****************************\n"
+										+ fam.getId() + " and " + fam2.getId()
+										+ " have the same spouses and marriage dates"
+										+ "\n**********************************************************************************************************\n");
 					}
 				}
 			}
@@ -1231,113 +1261,114 @@ public class TeamFive {
 		}
 
 	}
-	
+
 	static void cousinsNotMarry(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws FileNotFoundException, IOException {
-		
+
 		// Sprint 3 - Xuanhong Shen - User Story US19 - Cousins should not
-				// marry
+		// marry
 
-				Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
-				Map<String, Family> famMap = new HashMap<String, Family>(families);
-				Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-				ArrayList<String> husbGrandParent = new ArrayList<String>();
-				while (famEntries.hasNext()) {
-					Map.Entry<String, Family> famEntry = famEntries.next();
-					Family fam = famEntry.getValue();
-					Individual husb = indMap.get(fam.getHusb());
-					Individual wife = indMap.get(fam.getWife());
-					// find out the family id of husb's grandparents
-					if (husb.getChildOf() != null) {
-						Family husbFam = famMap.get(husb.getChildOf());
-						Individual husbFather = indMap.get(husbFam.getHusb());
-						Individual husbMother = indMap.get(husbFam.getWife());
-						if (husbFather.getChildOf() != null) {
-							husbGrandParent.add(husbFather.getChildOf());
-						}
-						if (husbMother.getChildOf() != null) {
-							husbGrandParent.add(husbMother.getChildOf());
-						}
-					}
-					if (wife.getChildOf() != null) {
-						Family wifeFam = famMap.get(wife.getChildOf());
-						Individual wifeFather = indMap.get(wifeFam.getHusb());
-						Individual wifeMother = indMap.get(wifeFam.getWife());
-						if (wifeFather.getChildOf() != null) {
-							if (husbGrandParent.contains(wifeFather.getChildOf())) {
-								writeToFile(
-										"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
-												+ husb.getId() + " - " + husb.getName()
-												+ " is married to his or her first cousin " + wife.getId() + " - "
-												+ wife.getName()
-												+ "\n**********************************************************************************************************\n");
-							}
-						}
-						if (wifeMother.getChildOf() != null) {
-							if (husbGrandParent.contains(wifeMother.getChildOf())) {
-								writeToFile(
-										"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
-												+ husb.getId() + " - " + husb.getName()
-												+ " is married to his or her first cousin " + wife.getId() + " - "
-												+ wife.getName()
-												+ "\n**********************************************************************************************************\n");
-							}
-						}
-					}
-
-				}
-
-			}
-	
-	static void currGenForRole(HashMap<String, Individual> individuals, HashMap<String, Family> families)
-			throws ParseException, FileNotFoundException, IOException{
-		//Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
-		if(famEntries.hasNext()){
+		ArrayList<String> husbGrandParent = new ArrayList<String>();
+		while (famEntries.hasNext()) {
 			Map.Entry<String, Family> famEntry = famEntries.next();
 			Family fam = famEntry.getValue();
 			Individual husb = indMap.get(fam.getHusb());
 			Individual wife = indMap.get(fam.getWife());
-			if(husb.getSex()!="male"){
-				writeToFile(
-						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
-								+ husb.getId()
-								+ "  Husband is not male "
-								+ "\n**********************************************************************************************************\n");
-				
+			// find out the family id of husb's grandparents
+			if (husb.getChildOf() != null) {
+				Family husbFam = famMap.get(husb.getChildOf());
+				Individual husbFather = indMap.get(husbFam.getHusb());
+				Individual husbMother = indMap.get(husbFam.getWife());
+				if (husbFather.getChildOf() != null) {
+					husbGrandParent.add(husbFather.getChildOf());
+				}
+				if (husbMother.getChildOf() != null) {
+					husbGrandParent.add(husbMother.getChildOf());
+				}
 			}
-			else if (wife.getSex()!="female"){
-				writeToFile(
-						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
-								+ wife.getId()
-								+ "  wife is not famale "
-								+ "\n**********************************************************************************************************\n");
+			if (wife.getChildOf() != null) {
+				Family wifeFam = famMap.get(wife.getChildOf());
+				Individual wifeFather = indMap.get(wifeFam.getHusb());
+				Individual wifeMother = indMap.get(wifeFam.getWife());
+				if (wifeFather.getChildOf() != null) {
+					if (husbGrandParent.contains(wifeFather.getChildOf())) {
+						writeToFile(
+								"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
+										+ husb.getId() + " - " + husb.getName()
+										+ " is married to his or her first cousin " + wife.getId() + " - "
+										+ wife.getName()
+										+ "\n**********************************************************************************************************\n");
+					}
+				}
+				if (wifeMother.getChildOf() != null) {
+					if (husbGrandParent.contains(wifeMother.getChildOf())) {
+						writeToFile(
+								"***************************ERROR: User Story US19: Cousins should not marry***************************************\nIndividual: "
+										+ husb.getId() + " - " + husb.getName()
+										+ " is married to his or her first cousin " + wife.getId() + " - "
+										+ wife.getName()
+										+ "\n**********************************************************************************************************\n");
+					}
+				}
 			}
-				
-				
-		}		
+
+		}
+
 	}
-	
+
+	static void currGenForRole(HashMap<String, Individual> individuals, HashMap<String, Family> families)
+			throws ParseException, FileNotFoundException, IOException {
+		// Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		if (famEntries.hasNext()) {
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			Individual husb = indMap.get(fam.getHusb());
+			Individual wife = indMap.get(fam.getWife());
+			if (husb.getSex() != "male") {
+				writeToFile(
+						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
+								+ husb.getId() + "  Husband is not male "
+								+ "\n**********************************************************************************************************\n");
+
+			} else if (wife.getSex() != "female") {
+				writeToFile(
+						"***************************ERROR: User Story User Story US21 Correct gender for role ****************************************\nFamily ID: "
+								+ wife.getId() + "  wife is not famale "
+								+ "\n**********************************************************************************************************\n");
+			}
+
+		}
+	}
+
 	static void listDeceased(HashMap<String, Individual> individuals)
+<<<<<<< Updated upstream
 			throws ParseException, FileNotFoundException, IOException{
 		//Sprint 3 - Kuo Fan - User Story US29 - List Deceased
+=======
+			throws ParseException, FileNotFoundException, IOException {
+		// Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
+>>>>>>> Stashed changes
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
-		if(indEntries.hasNext()){
+		if (indEntries.hasNext()) {
 			Map.Entry<String, Individual> indEntry = indEntries.next();
 			Individual ind = indEntry.getValue();
-			if(ind.getDeath()!=null){
+			if (ind.getDeath() != null) {
 				writeToFile(
 						"***************************ERROR: User Story User Story US29 List all deceased individuals in a GEDCOM file ****************************************\nFamily ID: "
-								+ ind.getId()
-								+ "   is dead "
+								+ ind.getId() + "   is dead "
 								+ "\n**********************************************************************************************************\n");
-				
-			}				
-		}		
+
+			}
+		}
 	}
+<<<<<<< Updated upstream
 	
 	static void listLivingSingle(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US31 - List Living Single
@@ -1437,13 +1468,18 @@ public class TeamFive {
 	
 	static void upcomingBirthdays(HashMap<String,Individual> individuals) throws FileNotFoundException, IOException{
 		//Sprint 4 US 38 Upcoming Birthdays  - Patrick Hill 
+=======
+
+	static void upcomingBirthdays(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
+		// Sprint 4 US 38 Upcoming Birthdays - Patrick Hill
+>>>>>>> Stashed changes
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
 		Calendar cal1 = Calendar.getInstance();
-	    Calendar cal2 =Calendar.getInstance();
-	     int diffDay=0;
-	     int diffMonth=0;
+		Calendar cal2 = Calendar.getInstance();
+		int diffDay = 0;
+		int diffMonth = 0;
 		while (entries.hasNext()) {
 			Map.Entry<String, Individual> entry = entries.next();
 			Individual indi = entry.getValue();
@@ -1460,30 +1496,30 @@ public class TeamFive {
 				e.printStackTrace();
 			}
 			// Comparing the dates
-			if (diffMonth==0 && diffDay<30){
-					writeToFile(
-							"***************************ERROR: User Story US38: Upcoming Birthday**************************************\nIndividual: "
-									+ indi.getId() + " - " + indi.getName() + " has a birthday less than 30 days from today\nDOB: "
-									+ indi.getBirth() 
-									+ "\n**********************************************************************************************************\n");
+			if (diffMonth == 0 && diffDay < 30) {
+				writeToFile(
+						"***************************ERROR: User Story US38: Upcoming Birthday**************************************\nIndividual: "
+								+ indi.getId() + " - " + indi.getName()
+								+ " has a birthday less than 30 days from today\nDOB: " + indi.getBirth()
+								+ "\n**********************************************************************************************************\n");
+			}
 		}
 	}
-}
-	
-	static void upcomingAnniversaries(HashMap<String,Family> families) throws FileNotFoundException, IOException{
-		//Sprint 4 US 39 Upcoming Anniversaries  - Patrick Hill 
+
+	static void upcomingAnniversaries(HashMap<String, Family> families) throws FileNotFoundException, IOException {
+		// Sprint 4 US 39 Upcoming Anniversaries - Patrick Hill
 		Map<String, Family> map = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
 		Calendar cal1 = Calendar.getInstance();
-	     Calendar cal2 =Calendar.getInstance();
-	     int diffDay=0;
-	     int diffMonth=0;
+		Calendar cal2 = Calendar.getInstance();
+		int diffDay = 0;
+		int diffMonth = 0;
 		while (entries.hasNext()) {
 			Map.Entry<String, Family> entry = entries.next();
 			Family fam = entry.getValue();
 			// Get the date of birth and date of death
-			Date date_of_marriage= null;
+			Date date_of_marriage = null;
 			try {
 				date_of_marriage = sdf.parse(fam.getMarriage());
 				cal1.setTime(date_of_marriage);
@@ -1495,21 +1531,107 @@ public class TeamFive {
 				e.printStackTrace();
 			}
 			// Comparing the dates
-			if (diffMonth==0 && diffDay<30){
-					writeToFile(
-							"***************************ERROR: User Story US39: Upcoming Anniversery**************************************\nFamily: "
-									+ fam.getId() +  " has an anniversery less than 30 days from today\nDate Of Marriage: "
-									+ fam.getMarriage() 
-									+ "\n**********************************************************************************************************\n");
+			if (diffMonth == 0 && diffDay < 30) {
+				writeToFile(
+						"***************************ERROR: User Story US39: Upcoming Anniversery**************************************\nFamily: "
+								+ fam.getId() + " has an anniversery less than 30 days from today\nDate Of Marriage: "
+								+ fam.getMarriage()
+								+ "\n**********************************************************************************************************\n");
+			}
+		}
+
+	}
+
+	static void recentBirth(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
+		// Sprint 4 US 35 List Recent Birth - Xuanhong Shen
+		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
+		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
+		Date nowTime = new Date(System.currentTimeMillis());
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		int diffDay = 0;
+		int diffMonth = 0;
+		int diffYear = 0;
+		while (entries.hasNext()) {
+			Map.Entry<String, Individual> entry = entries.next();
+			Individual indi = entry.getValue();
+			// Get the date of birth and date of death
+			Date date_of_birth = null;
+			try {
+				date_of_birth = sdf.parse(indi.getBirth());
+				cal1.setTime(date_of_birth);
+				cal2.setTime(nowTime);
+				diffYear = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
+				if (diffYear == 0) {
+					diffDay = Math.abs(cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH));
+					diffMonth = Math.abs(cal2.get(Calendar.MONTH) - cal1.get(Calendar.MONTH));
+				}
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// Comparing the dates
+			if (diffYear == 0 && diffMonth <= 1 && diffDay < 30) {
+				writeToFile(
+						"***************************ERROR: User Story US35: Recent Birth**************************************\nIndividual: "
+								+ indi.getId() + " - " + indi.getName()
+								+ " was born in the last 30 days from today\nDOB: " + indi.getBirth()
+								+ "\n**********************************************************************************************************\n");
+			}
 		}
 	}
 
+<<<<<<< Updated upstream
 		
 		
 		
 		
 	
 		
+=======
+	static void recentDeath(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
+		// Sprint 4 US 35 List Recent Death - Xuanhong Shen
+		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
+		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
+		Date nowTime = new Date(System.currentTimeMillis());
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		int diffDay = 0;
+		int diffMonth = 0;
+		int diffYear = 0;
+		while (entries.hasNext()) {
+			Map.Entry<String, Individual> entry = entries.next();
+			Individual indi = entry.getValue();
+			// Get the date of birth and date of death
+			Date date_of_death = null;
+			if (indi.getDeath() != null) {
+				try {
+					date_of_death = sdf.parse(indi.getDeath());
+					cal1.setTime(date_of_death);
+					cal2.setTime(nowTime);
+					diffYear = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
+					if (diffYear == 0) {
+						diffDay = Math.abs(cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH));
+						diffMonth = Math.abs(cal2.get(Calendar.MONTH) - cal1.get(Calendar.MONTH));
+					}
+
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Comparing the dates
+				if (diffYear == 0 && diffMonth <= 1 && diffDay < 30) {
+					writeToFile(
+							"***************************ERROR: User Story US36: Recent Death**************************************\nIndividual: "
+									+ indi.getId() + " - " + indi.getName()
+									+ " was dead in the last 30 days from today\nDOD: " + indi.getDeath()
+									+ "\n**********************************************************************************************************\n");
+				}
+			}
+
+		}
+>>>>>>> Stashed changes
 	}
 	
 }
