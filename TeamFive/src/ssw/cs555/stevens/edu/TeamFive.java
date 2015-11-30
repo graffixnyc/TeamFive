@@ -91,31 +91,16 @@ public class TeamFive {
 			currGenForRole(individuals, families);
 			// US22 - Xuanhong Shen
 			uniqueID(individuals, families);
-<<<<<<< Updated upstream
 			// US23 - Patrick Hill
-=======
-			// US23 - PatricUnparseable date: "Tue Nov 10 12:43:34 EST 2015"k
-			// Hill
->>>>>>> Stashed changes
 			uniqueNameAndBirthdate(individuals);
 			// US24 - Jason Sarwar
 			uniqueFamiliesBySpouses(individuals, families);
 			// US29 - Kuo Fan
 			listDeceased(individuals);
-			// TODO
-<<<<<<< Updated upstream
-			
+
 			// ****Sprint 4****
-			
 			// US31 - Jason Sarwar
-			// TODO
-			// US37 - Jason Sarwar
-			// TODO
-=======
-
-			// ****SPRINT 4****
-			// US31 - Jason Sarwar
-
+			listLivingSingle(individuals, families)
 			// US33 - Kuo Fan
 
 			// US34 - Kuo Fan
@@ -125,8 +110,7 @@ public class TeamFive {
 			// US36 - Xuanhong Shen
 			recentDeath(individuals);
 			// US37 - Jason Sarwar
-
->>>>>>> Stashed changes
+			listRecentSurvivors(individuals, families);
 			// US38 - Patrick Hill
 			upcomingBirthdays(individuals);
 			// US39 - Patrick Hill
@@ -1346,14 +1330,8 @@ public class TeamFive {
 		}
 	}
 
-	static void listDeceased(HashMap<String, Individual> individuals)
-<<<<<<< Updated upstream
-			throws ParseException, FileNotFoundException, IOException{
+	static void listDeceased(HashMap<String, Individual> individuals) throws ParseException, FileNotFoundException, IOException{
 		//Sprint 3 - Kuo Fan - User Story US29 - List Deceased
-=======
-			throws ParseException, FileNotFoundException, IOException {
-		// Sprint 3 - Kuo Fan - User Story US21 Correct gender for role
->>>>>>> Stashed changes
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
 		if (indEntries.hasNext()) {
@@ -1368,7 +1346,7 @@ public class TeamFive {
 			}
 		}
 	}
-<<<<<<< Updated upstream
+
 	
 	static void listLivingSingle(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US31 - List Living Single
@@ -1452,6 +1430,18 @@ public class TeamFive {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	static void allDescendants(String famId) throws ParseException, FileNotFoundException, IOException{
 		// Helper function for US37 - Jason Sarwar
 		Family fam = families.get(famId);
@@ -1468,11 +1458,6 @@ public class TeamFive {
 	
 	static void upcomingBirthdays(HashMap<String,Individual> individuals) throws FileNotFoundException, IOException{
 		//Sprint 4 US 38 Upcoming Birthdays  - Patrick Hill 
-=======
-
-	static void upcomingBirthdays(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
-		// Sprint 4 US 38 Upcoming Birthdays - Patrick Hill
->>>>>>> Stashed changes
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
@@ -1582,16 +1567,9 @@ public class TeamFive {
 		}
 	}
 
-<<<<<<< Updated upstream
-		
-		
-		
-		
-	
-		
-=======
+
 	static void recentDeath(HashMap<String, Individual> individuals) throws FileNotFoundException, IOException {
-		// Sprint 4 US 35 List Recent Death - Xuanhong Shen
+		// Sprint 4 US 36 List Recent Death - Xuanhong Shen
 		Map<String, Individual> map = new HashMap<String, Individual>(individuals);
 		Iterator<Map.Entry<String, Individual>> entries = map.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
@@ -1631,7 +1609,7 @@ public class TeamFive {
 			}
 
 		}
->>>>>>> Stashed changes
+
 	}
 	
 }
