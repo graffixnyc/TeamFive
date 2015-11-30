@@ -1344,6 +1344,28 @@ public class TeamFive {
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		
+		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		while (indEntries.hasNext()) {
+			Map.Entry<String, Individual> indEntry = indEntries.next();
+			Individual ind = indEntry.getValue();
+			Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
+			int exists = 0;
+			while (famEntries.hasNext()) {
+				Map.Entry<String, Family> famEntry = famEntries.next();
+				Family fam = famEntry.getValue();
+				if(ind.getId().equals(fam.getHusb()) || ind.getId().equals(fam.getWife())) {
+					exists = 1;
+					break;
+				}
+					
+			}
+			
+			if(exists) {
+				
+			}
+				
+			
+		}
 		
 	}
 	
