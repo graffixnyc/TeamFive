@@ -1339,14 +1339,17 @@ public class TeamFive {
 		}		
 	}
 	
-	static void listLivingSingle(HashMap<String, Individual> individuals) throws ParseException, FileNotFoundException, IOException{
+	static void listLivingSingle(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US31 - List Living Single
-	
+		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
+		Map<String, Family> famMap = new HashMap<String, Family>(families);
+		
+		
 	}
 	
 	
 	
-	static void listRecentSurvivors(HashMap<String, Individual> individuals) throws ParseException, FileNotFoundException, IOException{
+	static void listRecentSurvivors(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US37 - List Recent Survivors
 	
 	}
