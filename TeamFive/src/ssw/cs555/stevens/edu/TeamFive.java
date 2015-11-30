@@ -1360,8 +1360,12 @@ public class TeamFive {
 					
 			}
 			
-			if(exists) {
-				
+			Calendar cal = Calender.getInstance();
+			Date now = sdf.format(cal.getDate);
+			
+			
+			if(!exists && ind.) {
+				writeToFile(ind.getName() + "\n");
 			}
 				
 			
