@@ -1,4 +1,4 @@
-package ssw.cs555.stevens.edu;
+package ssw;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -103,8 +103,8 @@ public class TeamFive {
 			// US31 - Jason Sarwar
 			listLivingSingle(individuals, families);
 			// US33 - Kuo Fan
-		    //listOrphans(individuals, families);
-
+		    listOrphans(individuals, families);
+		    listLargeAgeDiff(individuals, families);
 			// US34 - Kuo Fan
 
 			// US35 - Xuanhong Shen
@@ -1348,38 +1348,55 @@ public class TeamFive {
 			}
 		}
 	}
-	/*
 	static void listOrphans(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 4 - Kuo Fan - List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
-		Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
 		Date nowTime = new Date(System.currentTimeMillis());
 		Calendar cal1 = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
 		int age=0;
-		if (indEntries.hasNext()) { 
-			Date date_of_birth = null;
-			Map.Entry<String, Individual> indEntry = indEntries.next();
-			Individual ind = indEntry.getValue();
-			Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-			if (famEntries.hasNext()){
-				Map.Entry<String, Family> famEntry = famEntries.next();
-				Family fam = famEntry.getValue();
-				date_of_birth = sdf.parse(ind.getBirth());
-				cal1.setTime(date_of_birth);
-				cal2.setTime(nowTime);
-				age = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
-				Individual parent = indMap.get(ind.getChildOf());
-			if(age<=18&&parent.getDeath()!=null){
-				writeToFile(
-						"***************************ERROR: User Story User Story US33 List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file ****************************************\nFamily ID: "
-								+ ind.getId() + "   is orphan "
-								+ "\n**********************************************************************************************************\n");
-			}
-				   }
+		int deathnum=0;
+		String id=null;
+		if (famEntries.hasNext()) { 
+			Map.Entry<String, Family> famEntry = famEntries.next();
+			Family fam = famEntry.getValue();
+			if(fam.getHusb()!= null && fam.getWife()!=null){
+			Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+			while(indEntries.hasNext()){
+			
+				Map.Entry<String, Individual> indEntry = indEntries.next();
+				Individual ind = indEntry.getValue();
+				if(ind.getId().equals(fam.getHusb())){
+					Individual wife = individuals.get(fam.getHusb());
+					if(wife.getDeath()!=null);
+					deathnum++;
 				}
+				if(ind.getId().equals(fam.getWife())){
+					Individual husb = individuals.get(fam.getWife());
+					if(husb.getDeath()!=null);
+					deathnum++;
+				}
+				if(ind.getId().equals(fam.getChild())){
+					Individual child = individuals.get(fam.getChild());
+					Date date_of_birth=sdf.parse(child.getBirth());
+					cal1.setTime(date_of_birth);
+					id=child.getId();
+				}
+			  }
+			cal2.setTime(nowTime);
+			age = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
+					    if(age<=18&&deathnum==2&&age!=0){						
+								writeToFile(
+										"***************************ERROR: User Story User Story US33 List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file ****************************************\nFamily ID: "
+												+ id + "   is orphan " 
+												+ "\n**********************************************************************************************************\n");				    		
+					   	            }	
+		   
+			}
+	     }
       }
 	static void listLargeAgeDiff(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
@@ -1387,45 +1404,59 @@ public class TeamFive {
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
 		Map<String, Family> famMap = new HashMap<String, Family>(families);
 		Iterator<Map.Entry<String, Family>> famEntries = famMap.entrySet().iterator();
-		if (famEntries.hasNext()) {
+		//writeToFile("******User Story US34 - List of Living Single Individuals 30 years and older:\n");
+		while (famEntries.hasNext()) {
 			Map.Entry<String, Family> famEntry = famEntries.next();
 			Family fam = famEntry.getValue();
-			Individual husb = indMap.get(fam.getHusb());
-			Individual wife = indMap.get(fam.getWife());
-			Calendar cal1 = Calendar.getInstance();
-			Calendar cal2 = Calendar.getInstance();
-			int differ=0;
-			Date hus_birth=null;
-			hus_birth=sdf.parse(husb.getBirth());
-			Date wif_birth=null;
-			wif_birth=sdf.parse(wife.getBirth());
-			cal1.setTime(hus_birth);
-			cal2.setTime(wif_birth);
-			differ = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
-			int differage=0;
-			if (differ>0){
-			differage=differ;
-			if(differage>cal2.get(Calendar.YEAR)){
-				writeToFile(
-						"***************************ERROR: User Story User Story US33 List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file ****************************************\nFamily ID: "
-								+ husb.getId() + "   is twice old than " + wife.getId()
-								+ "\n**********************************************************************************************************\n");
-			   }
+			if(fam.getHusb()!= null && fam.getWife()!=null){
+				Iterator<Map.Entry<String, Individual>> indEntries = indMap.entrySet().iterator();
+				while(indEntries.hasNext()){
+				Map.Entry<String, Individual> indEntry = indEntries.next();
+				Individual ind = indEntry.getValue();
+				Calendar cal1 = Calendar.getInstance();
+				Calendar cal2 = Calendar.getInstance();
+				int differ=0;	
+				int differage=0;
+				if(ind.getId().equals(fam.getHusb())){
+					Individual wife = individuals.get(fam.getWife());
+					Date wif_birth=null;	
+					wif_birth=sdf.parse(wife.getBirth());
+					cal1.setTime(wif_birth);		
+				  }
+				if(ind.getId().equals(fam.getHusb())){
+					Individual husb = individuals.get(fam.getHusb());
+					Date husb_birth=null;
+					husb_birth=sdf.parse(husb.getBirth()); 
+					cal2.setTime(husb_birth);
+				  }
+				differ = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR);
+                if (differ>0){
+				differage=differ;
+				if(differage>0){
+					Individual wife = individuals.get(fam.getWife());
+					Individual husb = individuals.get(fam.getHusb());
+					writeToFile(
+							"***************************ERROR: US34 List large age differences ****************************************\nFamily ID: "
+									+ husb.getId() + "   is twice old than " + wife.getId()
+									+ "\n**********************************************************************************************************\n");
+				   }
+				}
+				else{
+				differage=cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR);
+				if(differage>cal1.get(Calendar.YEAR)){
+					Individual wife = individuals.get(fam.getWife());
+					Individual husb = individuals.get(fam.getHusb());
+					writeToFile(
+							"***************************ERROR:US34 List large age differences ****************************************\nFamily ID: "
+									+ wife.getId() + "   is twice old than " + husb.getId()
+									+ "\n**********************************************************************************************************\n");
+				 }
+				}	
+				}
 			}
-			else{
-			differage=cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR);
-			if(differage>cal1.get(Calendar.YEAR)){
-				writeToFile(
-						"***************************ERROR: User Story User Story US33 List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file ****************************************\nFamily ID: "
-								+ wife.getId() + "   is twice old than " + husb.getId()
-								+ "\n**********************************************************************************************************\n");
-			 }
-			}			
+				
 		 }
 		}
-
-*/
-	
 	static void listLivingSingle(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US31 - List Living Single
 		Map<String, Individual> indMap = new HashMap<String, Individual>(individuals);
