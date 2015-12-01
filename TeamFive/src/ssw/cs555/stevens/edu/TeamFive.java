@@ -1539,17 +1539,6 @@ public class TeamFive {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	static void allDescendants(String famId) throws ParseException, FileNotFoundException, IOException{
 		// Helper function for US37 - Jason Sarwar
 		Family fam = families.get(famId);
