@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -100,12 +101,11 @@ public class TeamFive {
 
 			// ****Sprint 4****
 			// US31 - Jason Sarwar
-			listLivingSingle(individuals, families)
+			listLivingSingle(individuals, families);
 			// US33 - Kuo Fan
-		    listOrphans(individuals, families);
+		    //listOrphans(individuals, families);
 
 			// US34 - Kuo Fan
-			listLargeAgeDiff(individuals, families);
 
 			// US35 - Xuanhong Shen
 			recentBirth(individuals);
@@ -1348,6 +1348,7 @@ public class TeamFive {
 			}
 		}
 	}
+	/*
 	static void listOrphans(HashMap<String, Individual> individuals, HashMap<String, Family> families)
 			throws ParseException, FileNotFoundException, IOException {
 		// Sprint 4 - Kuo Fan - List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file
@@ -1423,6 +1424,7 @@ public class TeamFive {
 		 }
 		}
 
+*/
 	
 	static void listLivingSingle(HashMap<String, Individual> individuals, HashMap<String, Family> families) throws ParseException, FileNotFoundException, IOException{
 		// Sprint 4 - Jason Sarwar - User Story US31 - List Living Single
@@ -1446,12 +1448,12 @@ public class TeamFive {
 					
 			}
 			
-			Calendar cal = Calender.getInstance();
-			Date now = sdf.format(cal.getTime());
+			Calendar cal = Calendar.getInstance();
+			Date now = new Date(System.currentTimeMillis());
 			Date birthDate = sdf.parse(ind.getBirth());
 			long diff = (now.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365);
 			
-			if(!exists && diff >= 30) {
+			if(exists == 0 && diff >= 30) {
 				writeToFile(ind.getName() + "\n");
 			}
 				
@@ -1477,8 +1479,8 @@ public class TeamFive {
 			
 			if(ind.getDeath() != null) {
 			
-				Calendar cal = Calender.getInstance();
-				Date now = sdf.format(cal.getTime());
+				Calendar cal = Calendar.getInstance();
+				Date now = new Date(System.currentTimeMillis());
 				Date deathDate = sdf.parse(ind.getDeath());
 				long diff = (now.getTime() - deathDate.getTime()) / (1000 * 60 * 60 * 24);
 				if(diff < 30) {
@@ -1489,7 +1491,7 @@ public class TeamFive {
 						if(ind.getId().equals(fam.getHusb())) {
 							Individual wife = individuals.get(fam.getWife());
 							writeToFile(wife.getName() + "\n");
-							allDescendants(fam.getId(), families);
+							allDescendants(fam.getId());
 						}
 						if(ind.getId().equals(fam.getWife())) {
 							Individual husband = individuals.get(fam.getHusb());
@@ -1517,16 +1519,15 @@ public class TeamFive {
 	
 	
 	
-	
 	static void allDescendants(String famId) throws ParseException, FileNotFoundException, IOException{
 		// Helper function for US37 - Jason Sarwar
 		Family fam = families.get(famId);
 		ArrayList<String> listOfChildren = fam.getChild();
 		if(listOfChildren != null) {
 			for(int i = 0; i < listOfChildren.size(); i++) {
-				Individual child = individuals.get(listOfChildren[i]);
+				Individual child = individuals.get(listOfChildren.get(i));
 				writeToFile(child.getName() + "\n");
-				allDescendants(listOfChildren[i]);
+				allDescendants(listOfChildren.get(i));
 			}
 		}
 	}

@@ -144,7 +144,7 @@
 1 BIRT
 2 DATE 20 APR 1972
 1 DEAT Y
-2 DATE 20 Nov 2015
+2 DATE 20 NOV 2015
 1 FAMC @F2@
 0 @I15@ INDI
 1 NAME G /Smith/
@@ -155,7 +155,7 @@
 1 BIRT
 2 DATE 20 APR 1973
 1 DEAT Y
-2 DATE 19 Nov 2015
+2 DATE 19 NOV 2015
 1 FAMC @F2@
 0 @I16@ INDI
 1 NAME H /Smith/
@@ -358,7 +358,6 @@
 1 FAMS @F12@
 1 FAMC @F11@
 0 @I37@ INDI
-<<<<<<< Updated upstream
 1 NAME Jason /Sarwar/
 2 GIVN Jason
 2 SURN Sarwar
@@ -372,7 +371,6 @@
 1 SEX M
 1 BIRT
 2 DATE 21 APR 1975
-=======
 1 NAME Peter /Johnson/
 2 GIVN Peter
 2 SURN Johnson
@@ -392,7 +390,6 @@
 2 DATE 30 NOV 2015
 1 FAMS @F12@
 1 FAMC @F11@
->>>>>>> Stashed changes
 0 @F1@ FAM
 1 HUSB @I1@
 1 WIFE @I4@
