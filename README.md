@@ -1,6 +1,6 @@
 # TeamFive
 
-Stevens Insititute of Technology 
+Stevens Institute of Technology 
 
 CS/SSW 555 Agile Methods for Software Development
 
